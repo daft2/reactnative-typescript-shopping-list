@@ -1,11 +1,26 @@
-import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, FlatList} from 'react-native';
+import uuid from 'uuid-random';
 import Header from './components/Header';
+import ListItem from './components/ListItem';
+
+// Alert.alert('No item', 'Please enter an item.', [{text: 'Ok'}]);
 
 const App = () => {
+  const [items, setItems] = useState([
+    {id: uuid(), title: 'Milk'},
+    {id: uuid(), title: 'Bread'},
+    {id: uuid(), title: 'Juice'},
+    {id: uuid(), title: 'Eggs'},
+  ]);
+
   return (
     <View style={styles.container}>
-      <Header title="Shopping List" />
+      <Header />
+      <FlatList
+        data={items}
+        renderItem={({item}) => <ListItem item={item} />}
+      />
     </View>
   );
 };
