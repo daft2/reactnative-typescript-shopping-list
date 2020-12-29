@@ -44,7 +44,13 @@ const App = () => {
   const editItem = (id: string, title: string) => {
     items.map((prevItem) => {
       if (prevItem.id === id) {
-        prevItem.title = title;
+        if (!title) {
+          Alert.alert('Cannot be empty', 'Please enter an item.', [
+            {text: 'Ok'},
+          ]);
+        } else {
+          prevItem.title = title;
+        }
       }
     });
   };

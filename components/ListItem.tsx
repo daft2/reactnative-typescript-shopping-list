@@ -22,6 +22,7 @@ const ListItem = ({item, deleteItem, editItem}: any) => {
               style={styles.input}
               onChangeText={onChange}
               value={title}
+              autoFocus
             />
             <Icon
               name="pencil"
@@ -73,6 +74,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   text: {
+    fontSize: 18,
+  },
+  input: {
+    height: 40,
     fontSize: 18,
   },
 });
