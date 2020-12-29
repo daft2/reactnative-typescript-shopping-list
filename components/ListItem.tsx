@@ -1,18 +1,60 @@
-import React from 'react';
-import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 
-const ListItem = ({item, deleteItem}: any) => {
+const ListItem = ({item, deleteItem, editItem}: any) => {
+  const [title, setTitle] = useState(item.title);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const onChange = (textValue: string) => setTitle(textValue);
+
   return (
     <TouchableOpacity style={styles.item}>
       <View style={styles.view}>
-        <Text style={styles.text}>{item.title}</Text>
-        <Icon
-          name="remove"
-          size={20}
-          color="firebrick"
-          onPress={() => deleteItem(item.id)}
-        />
+        {isEditMode ? (
+          <>
+            <TextInput
+              style={styles.input}
+              onChangeText={onChange}
+              value={title}
+            />
+            <Icon
+              name="pencil"
+              style={{paddingHorizontal: 10}}
+              size={20}
+              color="#0A2061"
+              onPress={() => {
+                editItem(item.id, title);
+                setIsEditMode(false);
+              }}
+            />
+          </>
+        ) : (
+          <>
+            <Text style={styles.text}>{item.title}</Text>
+            <View style={{flexDirection: 'row'}}>
+              <Icon
+                name="pencil"
+                style={{paddingHorizontal: 10}}
+                size={20}
+                color="#0A2061"
+                onPress={() => setIsEditMode(true)}
+              />
+              <Icon
+                name="remove"
+                style={{paddingHorizontal: 10}}
+                size={20}
+                color="firebrick"
+                onPress={() => deleteItem(item.id)}
+              />
+            </View>
+          </>
+        )}
       </View>
     </TouchableOpacity>
   );

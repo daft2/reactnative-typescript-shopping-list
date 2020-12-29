@@ -41,6 +41,14 @@ const App = () => {
     }
   };
 
+  const editItem = (id: string, title: string) => {
+    items.map((prevItem) => {
+      if (prevItem.id === id) {
+        prevItem.title = title;
+      }
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Header />
@@ -48,7 +56,7 @@ const App = () => {
       <FlatList
         data={items}
         renderItem={({item}) => (
-          <ListItem item={item} deleteItem={deleteItem} />
+          <ListItem item={item} deleteItem={deleteItem} editItem={editItem} />
         )}
       />
     </View>
