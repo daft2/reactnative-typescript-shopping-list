@@ -22,8 +22,18 @@ const App = () => {
   };
 
   const addItem = (title: string) => {
+    let duplicate = false;
+    items.map((item) => {
+      if (title === item.title) {
+        duplicate = true;
+      }
+    });
     if (!title) {
       Alert.alert('No item', 'Please enter an item.', [{text: 'Ok'}]);
+    } else if (duplicate) {
+      Alert.alert('Duplicate item', 'Please enter another an item.', [
+        {text: 'Ok'},
+      ]);
     } else {
       setItems((prevItems) => {
         return [{id: uuid(), title}, ...prevItems];
